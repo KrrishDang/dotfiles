@@ -1,0 +1,57 @@
+"$schema" = "https://starship.rs/config-schema.json"
+
+format = """
+$directory\
+$git_branch\
+$git_status\
+$cmd_duration\
+$line_break\
+$character"""
+
+# ================================
+# DIRECTORY
+# ================================
+[directory]
+style = "blue"
+truncation_length = 3
+truncate_to_repo = true
+
+# ================================
+# PROMPT SYMBOL
+# ================================
+[character]
+success_symbol = "[❯](purple)"
+error_symbol = "[❯](red)"
+vimcmd_symbol = "[❮](green)"
+
+# ================================
+# GIT
+# ================================
+[git_branch]
+format = "[$branch]($style) "
+style = "bright-black"
+
+[git_status]
+disabled = true
+
+# ================================
+# GIT STATE
+# ================================
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+style = "bright-black"
+
+# ================================
+# COMMAND TIME
+# ================================
+[cmd_duration]
+format = "[$duration]($style) "
+style = "yellow"
+min_time = 500
+
+# ================================
+# PYTHON (only when active)
+# ================================
+[python]
+format = "[$virtualenv]($style) "
+style = "bright-black"
