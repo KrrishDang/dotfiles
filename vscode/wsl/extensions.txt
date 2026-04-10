@@ -1,0 +1,16 @@
+bradlc.vscode-tailwindcss
+christian-kohler.npm-intellisense
+christian-kohler.path-intellisense
+dbaeumer.vscode-eslint
+eamodio.gitlens
+esbenp.prettier-vscode
+github.copilot-chat
+github.vscode-pull-request-github
+ms-python.debugpy
+ms-python.python
+ms-python.vscode-pylance
+ms-python.vscode-python-envs
+prisma.prisma
+rangav.vscode-thunder-client
+tonybaloney.vscode-pets
+wix.vscode-import-cost
