@@ -15,23 +15,11 @@
     default = simple
 
 [alias]
-    # Basic
     st = status
     co = checkout
     br = branch
-
-    # Add / commit
     aa = add .
     cm = commit -m
-
-    # Log (VERY IMPORTANT)
     lg = log --oneline --graph --all --decorate
-
-    # Sync
     sync = "!git pull --rebase && git push"
-
-    # Undo last commit (keep changes)
     undo = reset --soft HEAD~1
-
-    # Clean merged branches
-    clean = "!git branch --merged | grep -v '\\*\\|main' | xargs -n 1 git branch -d"

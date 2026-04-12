@@ -2,8 +2,6 @@
 
 DOTFILES="$HOME/dotfiles"
 
-echo "Installing dotfiles..."
-
 ln -sf "$DOTFILES/zsh/.zshrc" ~/.zshrc
 ln -sf "$DOTFILES/git/.gitconfig" ~/.gitconfig
 ln -sf "$DOTFILES/tmux/.tmux.conf" ~/.tmux.conf
@@ -17,5 +15,3 @@ ln -sf "$DOTFILES/vscode/wsl/settings.json" ~/.vscode-server/data/Machine/settin
 if [ -f "$DOTFILES/vscode/wsl/extensions.txt" ]; then
   cat "$DOTFILES/vscode/wsl/extensions.txt" | xargs -L 1 code --install-extension
 fi
-
-echo "Done!"
