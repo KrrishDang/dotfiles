@@ -14,6 +14,8 @@ eval "$(starship init zsh)"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
+nvm use 20 >/dev/null 2>&1
+
 HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.zsh_history
@@ -25,7 +27,7 @@ setopt INC_APPEND_HISTORY
 setopt EXTENDED_HISTORY
 
 setopt AUTO_CD
-setopt CORRECT
+unsetopt CORRECT
 setopt INTERACTIVE_COMMENTS
 setopt AUTO_PUSHD
 setopt PUSHD_IGNORE_DUPS
@@ -51,5 +53,13 @@ alias gcb="git checkout -b"
 
 alias cls="clear"
 alias reload="source ~/.zshrc"
+alias dev="~/dotfiles/scripts/dev.sh"
+alias proj="cd ~/dev"
+
+alias nvim="vim"
+
+alias f="fzf"
+alias fh="history | fzf"
 
 mkcd() { mkdir -p "$1" && cd "$1"; }
+. "$HOME/.local/bin/env"
