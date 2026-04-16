@@ -63,5 +63,4 @@ alias fh="history | fzf"
 
 mkcd() { mkdir -p "$1" && cd "$1"; }
 . "$HOME/.local/bin/env"
-export OPENAI_API_KEY="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"
 export OPENAI_API_KEY="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"
