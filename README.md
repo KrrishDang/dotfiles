@@ -23,3 +23,13 @@ chmod +x *.sh
 ./bootstrap.sh
 ./install.sh
 ```
+
+VS Code
+
+Extensions
+
+- Export:
+  ./scripts/export-vscode.sh
+
+- Import:
+  ./scripts/import-vscode.sh
