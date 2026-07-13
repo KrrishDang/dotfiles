@@ -12,23 +12,32 @@ alias proj="cd ~/dev"
 # File Management
 # ==========================================
 
-alias ls="eza --icons"
-alias ll="eza -la --icons"
-alias la="eza -a --icons"
-alias lt="eza --tree --level=2 --icons"
+if command -v eza >/dev/null 2>&1; then
+    alias ls="eza --icons"
+    alias ll="eza -la --icons"
+    alias la="eza -a --icons"
+    alias lt="eza --tree --level=2 --icons"
+fi
 
-alias cat="bat"
-alias find="fd"
+if command -v bat >/dev/null 2>&1; then
+    alias cat="bat"
+fi
+
+if command -v fd >/dev/null 2>&1; then
+    alias find="fd"
+fi
+
+if command -v fzf >/dev/null 2>&1; then
+    alias f="fzf"
+    alias fh="history | fzf"
+fi
 
 # ==========================================
 # Utilities
 # ==========================================
 
 alias cls="clear"
-alias reload="source ~/.zshrc"
-
-alias f="fzf"
-alias fh="history | fzf"
+alias reload='source "$HOME/.zshrc"'
 
 # ==========================================
 # Dotfiles
@@ -71,3 +80,17 @@ alias drmi="docker rmi"
 # ==========================================
 
 alias serve="uvicorn app.main:app --reload"
+
+# ==========================================
+# AI (Enable after installation)
+# ==========================================
+
+# alias codex="codex"
+# alias ag="antigravity"
+# alias ollama="ollama"
+
+# ==========================================
+# GitHub (Enable after installation)
+# ==========================================
+
+# alias ghrepo="gh repo view --web"

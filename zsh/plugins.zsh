@@ -1,14 +1,4 @@
 # ==========================================
-# Oh My Zsh Plugins
-# ==========================================
-
-plugins=(
-    git
-    zsh-autosuggestions
-    zsh-syntax-highlighting
-)
-
-# ==========================================
 # Completion
 # ==========================================
 
@@ -42,5 +32,7 @@ setopt AUTO_CD
 setopt AUTO_PUSHD
 setopt PUSHD_IGNORE_DUPS
 setopt INTERACTIVE_COMMENTS
+setopt COMPLETE_IN_WORD
+setopt ALWAYS_TO_END
 
 unsetopt CORRECT
