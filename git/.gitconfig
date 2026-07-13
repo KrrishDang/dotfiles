@@ -1,6 +1,9 @@
 [user]
     name = Krrish Dang
-	email = 153355802+KrrishDang@users.noreply.github.com
+    email = 153355802+KrrishDang@users.noreply.github.com
+
+[init]
+    defaultBranch = main
 
 [pull]
     rebase = true
@@ -8,18 +11,45 @@
 [rebase]
     autoStash = true
 
-[init]
-    defaultBranch = main
-
 [push]
     default = simple
+    autoSetupRemote = true
+
+[fetch]
+    prune = true
+
+[merge]
+    conflictstyle = zdiff3
+
+[diff]
+    algorithm = histogram
+    colorMoved = default
+
+[rerere]
+    enabled = true
 
 [alias]
     st = status
+    a = add
+    c = commit
+    ca = commit --amend
+
+    sw = switch
     co = checkout
     br = branch
-    aa = add .
-    cm = commit -m
-    lg = log --oneline --graph --all --decorate
+
+    lg = log --oneline --graph --decorate --all
+    graph = log --graph --decorate --oneline --all
+    last = log -1 HEAD
+
+    df = diff
+
+    unstage = restore --staged
+
+    rb = rebase
+
     sync = "!git pull --rebase && git push"
+
     undo = reset --soft HEAD~1
+[core]
+	excludesfile = /home/krrish/dotfiles/git/.gitignore_global

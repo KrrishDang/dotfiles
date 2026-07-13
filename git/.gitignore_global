@@ -1,31 +1,43 @@
+# ==========================================
+# Operating System
+# ==========================================
+
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ==========================================
 # Python
+# ==========================================
+
 __pycache__/
 *.py[cod]
-*.so
+*.pyo
+*.pyd
 
-# Virtual Environments
-.venv/
-venv/
-
-# Environment
-.env
-.env.*
-
-# Jupyter
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.pytype/
 .ipynb_checkpoints/
 
-# Ruff
-.ruff_cache/
+# ==========================================
+# Editors
+# ==========================================
 
-# Testing
-.pytest_cache/
+*.swp
+*.swo
+*~
 
-# IDE
-.vscode/
-.idea/
+# ==========================================
+# Logs
+# ==========================================
 
-# macOS
-.DS_Store
+*.log
 
-# Windows
-Thumbs.db
+# ==========================================
+# Temporary Files
+# ==========================================
+
+.cache/
+tmp/
