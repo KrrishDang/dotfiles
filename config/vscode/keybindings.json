@@ -1,0 +1,30 @@
+[
+  {
+    "key": "ctrl+enter",
+    "command": "python.execInTerminal-icon"
+  },
+  {
+    "key": "ctrl+shift+r",
+    "command": "workbench.action.terminal.runSelectedText"
+  },
+  {
+    "key": "ctrl+shift+`",
+    "command": "workbench.action.terminal.new"
+  },
+  {
+    "key": "ctrl+alt+l",
+    "command": "editor.action.formatDocument"
+  },
+  {
+    "key": "ctrl+shift+e",
+    "command": "workbench.view.explorer"
+  },
+  {
+    "key": "ctrl+shift+g",
+    "command": "workbench.view.scm"
+  },
+  {
+    "key": "ctrl+shift+j",
+    "command": "workbench.action.togglePanel"
+  }
+]

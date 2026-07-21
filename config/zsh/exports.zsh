@@ -1,13 +1,33 @@
 # ==========================================
+# Environment
+# ==========================================
+
+export EDITOR="nvim"
+export VISUAL="$EDITOR"
+export PAGER="less"
+export LESS="-FRX"
+
+# ==========================================
+# Homebrew
+# ==========================================
+
+if command -v brew >/dev/null 2>&1; then
+  eval "$(brew shellenv)"
+fi
+
+# ==========================================
 # PATH
 # ==========================================
 
 typeset -U path PATH
 
 path=(
-    "$HOME/.local/share/pnpm"
-    $path
+  "$HOME/.local/bin"
+  "$HOME/.local/share/pnpm"
+  $path
 )
+
+export PATH
 
 # ==========================================
 # NVM
@@ -15,20 +35,7 @@ path=(
 
 export NVM_DIR="$HOME/.nvm"
 
-if [[ -s "$NVM_DIR/nvm.sh" ]]; then
-    source "$NVM_DIR/nvm.sh"
-    nvm use default >/dev/null 2>&1 || true
-fi
-
-# ==========================================
-# Homebrew (Linux/macOS)
-# ==========================================
-
-if [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-elif [[ -x /opt/homebrew/bin/brew ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
+[[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh"
 
 # ==========================================
 # uv

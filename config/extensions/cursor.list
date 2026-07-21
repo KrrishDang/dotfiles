@@ -1,0 +1,12 @@
+# Cursor
+anysphere.cursorpyright
+anysphere.remote-containers
+anysphere.remote-ssh
+anysphere.remote-wsl
+
+# Themes
+equinusocio.vsc-community-material-theme
+flvffy.poimandres
+
+# Git
+github.vscode-github-actions

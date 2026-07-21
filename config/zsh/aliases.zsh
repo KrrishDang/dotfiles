@@ -7,29 +7,27 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 
 alias proj="cd ~/dev"
+alias dots="cd $DOTFILES"
 
 # ==========================================
 # File Management
 # ==========================================
 
 if command -v eza >/dev/null 2>&1; then
-    alias ls="eza --icons"
-    alias ll="eza -la --icons"
-    alias la="eza -a --icons"
-    alias lt="eza --tree --level=2 --icons"
+  alias ls="eza --icons"
+  alias ll="eza -la --icons"
+  alias la="eza -a --icons"
+  alias tree="eza --tree --icons"
+  alias lt="eza --tree --level=2 --icons"
 fi
 
 if command -v bat >/dev/null 2>&1; then
-    alias cat="bat"
-fi
-
-if command -v fd >/dev/null 2>&1; then
-    alias find="fd"
+  alias cat="bat"
 fi
 
 if command -v fzf >/dev/null 2>&1; then
-    alias f="fzf"
-    alias fh="history | fzf"
+  alias f="fzf"
+  alias fh="history | fzf"
 fi
 
 # ==========================================
@@ -37,13 +35,42 @@ fi
 # ==========================================
 
 alias cls="clear"
-alias reload='source "$HOME/.zshrc"'
+
+alias path='printf "%s\n" "${path[@]}"'
 
 # ==========================================
 # Dotfiles
 # ==========================================
 
-alias dev="$HOME/dotfiles/scripts/dev.sh"
+alias dev="$DOTFILES/scripts/dev.sh"
+
+# ==========================================
+# Git
+# ==========================================
+
+alias g="git"
+
+alias gs="git status"
+alias ga="git add"
+alias gaa="git add ."
+
+alias gc="git commit"
+alias gcm="git commit -m"
+
+alias gp="git push"
+alias gl="git pull"
+
+alias gd="git diff"
+alias gds="git diff --staged"
+
+alias gb="git branch"
+alias gco="git checkout"
+alias gsw="git switch"
+
+alias gst="git stash"
+alias gstp="git stash pop"
+
+alias glog="git log --oneline --graph --decorate --all"
 
 # ==========================================
 # Python / uv
@@ -75,6 +102,11 @@ alias di="docker images"
 alias drm="docker rm"
 alias drmi="docker rmi"
 
+alias dcu="docker compose up"
+alias dcud="docker compose up -d"
+alias dcd="docker compose down"
+alias dcl="docker compose logs -f"
+
 # ==========================================
 # FastAPI
 # ==========================================
@@ -85,12 +117,14 @@ alias serve="uvicorn app.main:app --reload"
 # AI (Enable after installation)
 # ==========================================
 
+# alias claude="claude"
 # alias codex="codex"
-# alias ag="antigravity"
+# alias gemini="gemini"
 # alias ollama="ollama"
+# alias ag="antigravity"
 
 # ==========================================
-# GitHub (Enable after installation)
+# GitHub CLI (Enable after installation)
 # ==========================================
 
 # alias ghrepo="gh repo view --web"

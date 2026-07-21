@@ -5,11 +5,14 @@
   "workbench.iconTheme": "material-icon-theme",
 
   "window.titleBarStyle": "custom",
+  "window.controlsStyle": "custom",
   "window.commandCenter": false,
   "window.menuBarVisibility": "compact",
 
   "workbench.activityBar.location": "top",
   "workbench.tree.indent": 20,
+  "workbench.layoutControl.enabled": false,
+  "workbench.sideBar.location": "left",
 
   "explorer.confirmDelete": false,
   "explorer.confirmDragAndDrop": false,
@@ -28,7 +31,7 @@
   "editor.fontFamily": "'JetBrainsMono Nerd Font', Consolas, 'Courier New', monospace",
   "editor.fontLigatures": true,
 
-  "editor.lineNumbers": "relative",
+  "editor.lineNumbers": "on",
 
   "editor.cursorBlinking": "expand",
   "editor.cursorSmoothCaretAnimation": "on",
@@ -61,6 +64,7 @@
   "files.autoSave": "afterDelay",
   "files.trimTrailingWhitespace": true,
   "files.insertFinalNewline": true,
+  "files.simpleDialog.enable": true,
 
   "files.exclude": {
     "**/__pycache__": true,
@@ -95,11 +99,9 @@
   "python.analysis.autoImportCompletions": true,
   "python.analysis.completeFunctionParens": true,
   "python.analysis.diagnosticMode": "workspace",
-
   "python.analysis.inlayHints.variableTypes": true,
   "python.analysis.inlayHints.functionReturnTypes": true,
 
-  "python.createEnvironment.trigger": "off",
   "python.terminal.activateEnvironment": true,
 
   "ruff.nativeServer": "on",
@@ -137,6 +139,8 @@
   "security.workspace.trust.untrustedFiles": "open",
 
   "github.copilot.nextEditSuggestions.enabled": true,
+
+  "breadcrumbs.enabled": false,
 
   "vscode-pets.theme": "forest",
   "vscode-pets.throwBallWithMouse": true,
