@@ -1,0 +1,33 @@
+[metadata]
+name = "files"
+description = "Browse, preview, and edit files."
+requirements = ["fd", "bat"]
+
+[source]
+command = [
+    "fd --type f",
+    "fd --type f --hidden",
+    "fd --type f --hidden --no-ignore",
+]
+
+[preview]
+command = "bat --style=plain --color=always '{}' 2>/dev/null || file '{}'"
+
+[keybindings]
+shortcut = "f1"
+enter = "actions:edit"
+ctrl-up = "actions:parent"
+
+[actions.edit]
+description = "Open selected file in Neovim"
+command = "nvim '{}'"
+mode = "execute"
+
+[actions.parent]
+description = "Browse parent directory"
+command = "tv files .."
+mode = "execute"
+
+[ui.preview_panel]
+hidden = false
+size = 55

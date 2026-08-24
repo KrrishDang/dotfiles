@@ -1,0 +1,26 @@
+[metadata]
+name = "zoxide"
+description = "Browse your zoxide directory history."
+requirements = ["zoxide", "eza"]
+
+[source]
+command = "zoxide query --list"
+no_sort = true
+frecency = false
+
+[preview]
+command = "eza -la --icons=always --git --color=always '{}'"
+
+[keybindings]
+enter = "actions:cd"
+ctrl-d = "actions:remove"
+
+[actions.cd]
+description = "Open a shell in the selected directory"
+command = "cd '{}' && exec $SHELL"
+mode = "execute"
+
+[actions.remove]
+description = "Remove selected directory from zoxide"
+command = "zoxide remove '{}'"
+mode = "fork"

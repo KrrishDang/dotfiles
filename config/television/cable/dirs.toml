@@ -1,0 +1,23 @@
+[metadata]
+name = "dirs"
+description = "Browse and select directories."
+requirements = ["fd", "eza"]
+
+[source]
+command = ["fd --type d", "fd --type d --hidden"]
+
+[preview]
+command = "eza -la --icons=always --git --color=always '{}'"
+
+[keybindings]
+shortcut = "f2"
+
+[actions.cd]
+description = "Open a shell in the selected directory"
+command = "cd '{}' && exec $SHELL"
+mode = "execute"
+
+[actions.parent]
+description = "Browse the parent directory"
+command = "tv dirs .."
+mode = "execute"

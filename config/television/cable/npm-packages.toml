@@ -1,0 +1,24 @@
+[metadata]
+name = "npm-packages"
+description = "Browse globally installed npm packages."
+requirements = ["npm"]
+
+[source]
+command = "npm list --global --depth=0 --parseable 2>/dev/null | tail -n +2 | xargs -I{} basename {}"
+
+[preview]
+command = "npm info '{}' 2>/dev/null | head -30"
+
+[keybindings]
+ctrl-u = "actions:update"
+ctrl-d = "actions:uninstall"
+
+[actions.update]
+description = "Update selected package"
+command = "npm update --global '{}'"
+mode = "execute"
+
+[actions.uninstall]
+description = "Uninstall selected package"
+command = "npm uninstall --global '{}'"
+mode = "execute"

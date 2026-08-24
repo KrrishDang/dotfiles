@@ -1,0 +1,12 @@
+--ignore=.git
+--ignore=.github
+--ignore=.gitignore
+--ignore=.stowrc
+--ignore=.DS_Store
+--ignore=Thumbs.db
+--ignore=README.md
+
+--ignore=docs
+--ignore=scripts
+--ignore=packages
+--ignore=templates

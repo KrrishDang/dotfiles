@@ -2,21 +2,44 @@
     name = Krrish Dang
     email = 153355802+KrrishDang@users.noreply.github.com
 
+# ==================================================
+# Core
+# ==================================================
+
+[core]
+    editor = nvim
+    excludesfile = ~/.dotfiles/config/git/.gitignore_global
+    autocrlf = input
+
+# ==================================================
+# Default Branch
+# ==================================================
+
 [init]
     defaultBranch = main
+
+# ==================================================
+# Pull / Push
+# ==================================================
 
 [pull]
     rebase = true
 
 [rebase]
     autoStash = true
+    updateRefs = true
 
 [push]
     default = simple
     autoSetupRemote = true
+    followTags = true
 
 [fetch]
     prune = true
+
+# ==================================================
+# Merge / Diff
+# ==================================================
 
 [merge]
     conflictstyle = zdiff3
@@ -28,28 +51,61 @@
 [rerere]
     enabled = true
 
+# ==================================================
+# Credential
+# ==================================================
+
+[credential]
+    helper = store
+
+# ==================================================
+# Aliases
+# ==================================================
+
 [alias]
-    st = status
+
+    # Status
+    st = status -sb
+
+    # Add
     a = add
+    aa = add --all
+
+    # Commit
     c = commit
+    cm = commit -m
     ca = commit --amend
 
+    # Branching
     sw = switch
     co = checkout
     br = branch
 
-    lg = log --oneline --graph --decorate --all
-    graph = log --graph --decorate --oneline --all
+    # Logs
+    lg = log --graph --decorate --oneline --all
     last = log -1 HEAD
 
+    # Diff
     df = diff
 
+    # Restore
     unstage = restore --staged
 
+    # Rebase
     rb = rebase
 
+    # Sync
     sync = "!git pull --rebase && git push"
 
+    # Undo last commit (keep changes)
     undo = reset --soft HEAD~1
-[core]
-	excludesfile = /home/krrish/dotfiles/git/.gitignore_global
+
+    # Clean merged branches
+    cleanup = "!git branch --merged | grep -v '\\*\\|main\\|master\\|develop' | xargs -r git branch -d"
+
+# ==================================================
+# Colors
+# ==================================================
+
+[color]
+    ui = auto

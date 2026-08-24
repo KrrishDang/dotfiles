@@ -1,0 +1,33 @@
+[metadata]
+name = "git-diff"
+description = "Browse modified files in the current Git repository."
+requirements = ["git"]
+
+[source]
+command = "git diff --name-only HEAD"
+
+[preview]
+command = "git diff HEAD --color=always -- '{}'"
+
+[ui]
+layout = "portrait"
+
+[keybindings]
+ctrl-s = "actions:stage"
+ctrl-r = "actions:restore"
+ctrl-e = "actions:edit"
+
+[actions.stage]
+description = "Stage selected file"
+command = "git add '{}'"
+mode = "fork"
+
+[actions.restore]
+description = "Discard changes in selected file"
+command = "git restore '{}'"
+mode = "fork"
+
+[actions.edit]
+description = "Open selected file in Neovim"
+command = "nvim '{}'"
+mode = "execute"

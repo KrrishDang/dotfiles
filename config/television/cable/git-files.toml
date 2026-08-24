@@ -1,0 +1,18 @@
+[metadata]
+name = "git-files"
+description = "Browse tracked files in the current Git repository."
+requirements = ["git", "bat"]
+
+[source]
+command = "git ls-files"
+
+[preview]
+command = "bat --style=plain --color=always '{}' 2>/dev/null || file '{}'"
+
+[keybindings]
+enter = "actions:edit"
+
+[actions.edit]
+description = "Open selected file in Neovim"
+command = "nvim '{}'"
+mode = "execute"

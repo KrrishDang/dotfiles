@@ -1,0 +1,15 @@
+[metadata]
+name = "alias"
+description = "Browse and select shell aliases."
+
+[source]
+# Execute the user's login shell so aliases are loaded.
+command = "$SHELL -ic 'alias'"
+output = "{split:=:0}"
+
+[preview]
+# Show the full alias definition.
+command = "$SHELL -ic 'alias' | grep -E '^(alias )?{split:=:0}='"
+
+[ui.preview_panel]
+size = 35

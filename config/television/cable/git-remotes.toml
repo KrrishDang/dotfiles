@@ -1,0 +1,18 @@
+[metadata]
+name = "git-remotes"
+description = "Browse and manage Git remotes."
+requirements = ["git"]
+
+[source]
+command = "git remote"
+
+[preview]
+command = "git remote show '{}'"
+
+[keybindings]
+ctrl-f = "actions:fetch"
+
+[actions.fetch]
+description = "Fetch from selected remote"
+command = "git fetch '{}'"
+mode = "execute"

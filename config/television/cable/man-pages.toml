@@ -1,0 +1,22 @@
+[metadata]
+name = "man-pages"
+description = "Browse and preview Linux manual pages."
+requirements = ["apropos", "man"]
+
+[source]
+command = "apropos ."
+
+[preview]
+command = "MANWIDTH=100 man '{0}'"
+
+[keybindings]
+enter = "actions:open"
+
+[actions.open]
+description = "Open selected man page"
+command = "man '{0}'"
+mode = "execute"
+
+[ui]
+layout = "portrait"
+preview_panel = { header = "{0}" }

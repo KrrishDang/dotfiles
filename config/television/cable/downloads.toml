@@ -1,0 +1,31 @@
+[metadata]
+name = "downloads"
+description = "Browse recent files in your Downloads folder."
+requirements = ["fd", "bat"]
+
+[source]
+command = "fd --type f . $HOME/Downloads 2>/dev/null | head -200"
+
+[preview]
+command = "bat --style=plain --color=always '{}' 2>/dev/null || file '{}'"
+env = { BAT_THEME = "ansi" }
+
+[keybindings]
+enter = "actions:open"
+ctrl-d = "actions:delete"
+ctrl-m = "actions:move"
+
+[actions.open]
+description = "Open selected file"
+command = "xdg-open '{}' >/dev/null 2>&1"
+mode = "fork"
+
+[actions.delete]
+description = "Delete selected file"
+command = "rm -i '{}'"
+mode = "execute"
+
+[actions.move]
+description = "Move selected file to current directory"
+command = "mv '{}' ."
+mode = "execute"

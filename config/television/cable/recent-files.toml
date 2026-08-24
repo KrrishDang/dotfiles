@@ -1,0 +1,21 @@
+[metadata]
+name = "recent-files"
+description = "Browse recently modified files."
+requirements = ["git", "bat", "find"]
+
+[source]
+command = [
+    "git diff --name-only HEAD~10 HEAD 2>/dev/null || find . -type f -mtime -7 -not -path '*/.*' | head -100",
+    "find . -type f -mmin -60 -not -path '*/.*' | head -100",
+]
+
+[preview]
+command = "bat --style=plain --color=always '{}' 2>/dev/null || file '{}'"
+
+[keybindings]
+enter = "actions:edit"
+
+[actions.edit]
+description = "Open selected file in Neovim"
+command = "nvim '{}'"
+mode = "execute"

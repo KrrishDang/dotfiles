@@ -1,0 +1,37 @@
+[metadata]
+name = "git-branch"
+description = "Browse and manage Git branches."
+requirements = ["git"]
+
+[source]
+command = "git --no-pager branch --all --format='%(refname:short)'"
+output = "{split: :0}"
+
+[preview]
+command = "git show --stat --patch --pretty=fuller --color=always '{0}'"
+
+[keybindings]
+enter = "actions:switch"
+ctrl-d = "actions:delete"
+ctrl-m = "actions:merge"
+ctrl-r = "actions:rebase"
+
+[actions.switch]
+description = "Switch to selected branch"
+command = "git switch '{0}'"
+mode = "execute"
+
+[actions.delete]
+description = "Delete selected branch"
+command = "git branch -d '{0}'"
+mode = "execute"
+
+[actions.merge]
+description = "Merge selected branch into current branch"
+command = "git merge '{0}'"
+mode = "execute"
+
+[actions.rebase]
+description = "Rebase current branch onto selected branch"
+command = "git rebase '{0}'"
+mode = "execute"

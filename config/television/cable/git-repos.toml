@@ -1,0 +1,37 @@
+[metadata]
+name = "git-repos"
+description = "Browse local Git repositories."
+requirements = ["fd", "git"]
+
+[source]
+command = "fd --glob .git --hidden --follow --type d --max-depth 6 --prune $HOME --exclude .cache --exclude node_modules --exec dirname '{}'"
+display = "{split:/:-1}"
+
+[preview]
+command = "cd '{}' && git log --graph --decorate --oneline --all -n 50 --color=always"
+
+[keybindings]
+enter = "actions:shell"
+ctrl-e = "actions:nvim"
+ctrl-c = "actions:cursor"
+ctrl-o = "actions:opencode"
+
+[actions.shell]
+description = "Open a shell in the repository"
+command = "cd '{}' && exec $SHELL"
+mode = "execute"
+
+[actions.nvim]
+description = "Open repository in Neovim"
+command = "nvim '{}'"
+mode = "execute"
+
+[actions.cursor]
+description = "Open repository in Cursor"
+command = "cursor '{}'"
+mode = "fork"
+
+[actions.opencode]
+description = "Open repository in OpenCode"
+command = "opencode '{}'"
+mode = "fork"

@@ -1,0 +1,33 @@
+[metadata]
+name = "unicode"
+description = "Browse and insert Unicode characters."
+requirements = ["awk", "perl"]
+
+[source]
+command = '''
+UNICODE_FILE="/usr/share/unicode/ucd/UnicodeData.txt"
+
+awk -F';' '
+  $2 !~ /^</ { print $1 "|" $2 }
+' "$UNICODE_FILE" |
+perl -CS -F'\|' -lane '
+    $code = $F[0];
+    $desc = $F[1];
+    $char = chr(hex($code));
+    print "U+$code|$char|$desc" if $char =~ /\p{Print}/;
+'
+'''
+
+display = "{split:|:0}    {split:|:1}    {split:|:2}"
+output = "{split:|:1}"
+
+[preview]
+command = "printf 'Code : {split:|:0}\nCharacter : {split:|:1}\nName : {split:|:2}\n'"
+
+[keybindings]
+enter = "actions:copy"
+
+[actions.copy]
+description = "Copy selected Unicode character"
+command = "printf '{split:|:1}' | xclip -selection clipboard"
+mode = "fork"

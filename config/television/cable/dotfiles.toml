@@ -1,0 +1,18 @@
+[metadata]
+name = "dotfiles"
+description = "Browse and edit your dotfiles."
+requirements = ["fd", "bat"]
+
+[source]
+command = "fd --type f . $HOME/dotfiles"
+
+[preview]
+command = "bat --style=plain --color=always '{}'"
+
+[keybindings]
+enter = "actions:edit"
+
+[actions.edit]
+description = "Edit selected file"
+command = "${EDITOR:-nvim} '{}'"
+mode = "execute"

@@ -1,0 +1,32 @@
+[metadata]
+name = "procs"
+description = "Browse and manage running processes."
+requirements = ["ps", "awk"]
+
+[source]
+command = "ps -e -o pid=,ucomm= | awk '{print $1, $2}'"
+display = "{split: :1}"
+output = "{split: :0}"
+
+[preview]
+command = "ps -p '{split: :0}' -o user,pid,ppid,state,%cpu,%mem,etime,command | fold -s"
+
+[keybindings]
+f2 = "actions:terminate"
+ctrl-s = "actions:stop"
+ctrl-c = "actions:continue"
+
+[actions.terminate]
+description = "Terminate selected process (SIGTERM)"
+command = "kill -TERM {split: :0}"
+mode = "execute"
+
+[actions.stop]
+description = "Pause selected process (SIGSTOP)"
+command = "kill -STOP {split: :0}"
+mode = "fork"
+
+[actions.continue]
+description = "Resume selected process (SIGCONT)"
+command = "kill -CONT {split: :0}"
+mode = "fork"

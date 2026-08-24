@@ -1,0 +1,17 @@
+[metadata]
+name = "channels"
+description = "Browse and switch between Television channels."
+
+[source]
+command = "tv list-channels"
+
+[preview]
+command = "bat --style=plain --color=always ~/.config/television/cable/{}.toml"
+
+[keybindings]
+enter = "actions:switch"
+
+[actions.switch]
+description = "Switch to selected channel"
+command = "tv '{}'"
+mode = "execute"

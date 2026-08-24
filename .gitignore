@@ -1,4 +1,27 @@
-node_modules
-.vscode
-*.log
+# OS
 .DS_Store
+Thumbs.db
+*:Zone.Identifier
+
+# Editors
+.vscode/
+.idea/
+
+# Secrets
+.env
+*.env
+secrets.env
+
+# SSH
+config/ssh/id_*
+config/ssh/*.pub
+
+# Node
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+
+# Logs
+*.log
