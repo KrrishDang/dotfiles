@@ -25,16 +25,17 @@ extract() {
     }
 
     case "$1" in
-        *.tar.bz2) tar xjf "$1" ;;
-        *.tar.gz)  tar xzf "$1" ;;
-        *.tbz2)    tar xjf "$1" ;;
-        *.tgz)     tar xzf "$1" ;;
-        *.tar)     tar xf "$1" ;;
-        *.bz2)     bunzip2 "$1" ;;
-        *.gz)      gunzip "$1" ;;
-        *.zip)     unzip "$1" ;;
-        *.rar)     unrar x "$1" ;;
-        *.7z)      7z x "$1" ;;
+        *.tar.bz2|*.tbz2) tar xjf "$1" ;;
+        *.tar.gz|*.tgz)   tar xzf "$1" ;;
+        *.tar.xz|*.txz)   tar xJf "$1" ;;
+        *.tar.zst)        tar --zstd -xf "$1" ;;
+        *.tar)            tar xf "$1" ;;
+        *.bz2)            bunzip2 "$1" ;;
+        *.gz)             gunzip "$1" ;;
+        *.xz)             unxz "$1" ;;
+        *.zip)            unzip "$1" ;;
+        *.rar)            unrar x "$1" ;;
+        *.7z)             7z x "$1" ;;
         *)
             echo "Unsupported archive format."
             return 1
@@ -60,7 +61,7 @@ cgit() {
 }
 
 # ==========================================================
-# Python
+# Python / uv
 # ==========================================================
 
 mkvenv() {
@@ -82,7 +83,9 @@ pyclean() {
             -o -name ".ruff_cache" \
             -o -name ".mypy_cache" \
             -o -name ".hypothesis" \
+            -o -name ".tox" \
         \) \
+        -prune \
         -exec rm -rf {} +
 
     find . \
@@ -96,6 +99,17 @@ pyclean() {
 }
 
 # ==========================================================
+# Git
+# ==========================================================
+
+groot() {
+    git rev-parse --show-toplevel 2>/dev/null || {
+        echo "Not inside a Git repository."
+        return 1
+    }
+}
+
+# ==========================================================
 # Development
 # ==========================================================
 
@@ -104,16 +118,19 @@ devinfo() {
 
     local tools=(
         "zsh:zsh --version"
-        "nvim:nvim --version | head -1"
         "git:git --version"
-        "python:python --version"
+        "nvim:nvim --version | head -1"
+        "python:python3 --version"
         "uv:uv --version"
         "node:node --version"
         "pnpm:pnpm --version"
         "docker:docker --version"
+        "tmux:tmux -V"
     )
 
-    local entry name cmd
+    local entry
+    local name
+    local cmd
 
     for entry in "${tools[@]}"; do
         name="${entry%%:*}"
@@ -148,4 +165,12 @@ weather() {
     }
 
     curl "https://wttr.in/${1:-}"
+}
+
+# ==========================================================
+# Dotfiles
+# ==========================================================
+
+dotreload() {
+    exec zsh
 }

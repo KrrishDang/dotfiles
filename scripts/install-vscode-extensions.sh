@@ -1,28 +1,78 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
+set -Eeuo pipefail
+
+# ==================================================
+# Install Editor Extensions
+# ==================================================
 
 DOTFILES="${DOTFILES:-$HOME/dotfiles}"
-EXT_DIR="$DOTFILES/vscode/extensions"
+EXT_DIR="$DOTFILES/config/editors/extensions"
 
 install_extensions() {
-    local list="$1"
+    local editor="$1"
+    local list="$2"
 
-    while IFS= read -r ext || [[ -n "$ext" ]]; do
-        [[ -z "$ext" || "$ext" =~ ^# ]] && continue
+    [[ -f "$list" ]] || return
 
-        echo "Installing $ext..."
-        code --install-extension "$ext"
+    while IFS= read -r extension || [[ -n "$extension" ]]; do
+        [[ -z "$extension" ]] && continue
+        [[ "$extension" =~ ^# ]] && continue
+
+        echo "Installing: $extension"
+
+        "$editor" --install-extension "$extension"
     done < "$list"
 }
 
-echo "Installing core extensions..."
-install_extensions "$EXT_DIR/core.list"
+echo "=========================================="
+echo "Installing editor extensions..."
+echo "=========================================="
 
-echo "Installing themes..."
-install_extensions "$EXT_DIR/themes.list"
+# ==================================================
+# VS Code
+# ==================================================
 
-echo "Installing optional extensions..."
-install_extensions "$EXT_DIR/optional.list"
+if command -v code >/dev/null 2>&1; then
 
-echo "✅ VS Code extensions installed."
+    echo
+    echo "VS Code"
+
+    install_extensions code "$EXT_DIR/shared.list"
+    install_extensions code "$EXT_DIR/vscode.list"
+
+fi
+
+# ==================================================
+# Cursor
+# ==================================================
+
+if command -v cursor >/dev/null 2>&1; then
+
+    echo
+    echo "Cursor"
+
+    install_extensions cursor "$EXT_DIR/shared.list"
+    install_extensions cursor "$EXT_DIR/cursor.list"
+
+fi
+
+# ==================================================
+# Antigravity
+# ==================================================
+
+if command -v antigravity-ide >/dev/null 2>&1; then
+
+    echo
+    echo "Antigravity"
+
+    install_extensions antigravity-ide "$EXT_DIR/shared.list"
+
+    if [[ -f "$EXT_DIR/antigravity.list" ]]; then
+        install_extensions antigravity-ide "$EXT_DIR/antigravity.list"
+    fi
+
+fi
+
+echo
+echo "✓ Extension installation complete."

@@ -1,5 +1,9 @@
 #!/usr/bin/env zsh
 
+# ==========================================================
+# Interactive Shell Only
+# ==========================================================
+
 [[ -o interactive ]] || return
 
 # ==========================================================
@@ -7,7 +11,7 @@
 # ==========================================================
 
 export DOTFILES="${DOTFILES:-$HOME/dotfiles}"
-export ZSH_CONFIG="$DOTFILES/config/zsh"
+export ZSH_CONFIG="$DOTFILES/config/shell/zsh"
 
 # ==========================================================
 # Shell Options
@@ -23,9 +27,9 @@ export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME=""
 
 plugins=(
-    git
-    zsh-autosuggestions
-    zsh-syntax-highlighting
+  git
+  zsh-autosuggestions
+  zsh-syntax-highlighting
 )
 
 # ==========================================================
@@ -45,16 +49,28 @@ plugins=(
 # ==========================================================
 
 for file in \
-    "$ZSH_CONFIG/history.zsh" \
-    "$ZSH_CONFIG/shell.zsh" \
-    "$ZSH_CONFIG/completions.zsh" \
-    "$ZSH_CONFIG/plugins.zsh" \
-    "$ZSH_CONFIG/aliases.zsh" \
-    "$ZSH_CONFIG/functions.zsh"
+  history \
+  shell \
+  completions \
+  plugins \
+  aliases \
+  functions
 do
-    [[ -f "$file" ]] && source "$file"
+  [[ -f "$ZSH_CONFIG/${file}.zsh" ]] && source "$ZSH_CONFIG/${file}.zsh"
 done
 
-. "$HOME/.atuin/bin/env"
+# ==========================================================
+# Atuin
+# ==========================================================
 
-eval "$(atuin init zsh)"
+if command -v atuin >/dev/null 2>&1; then
+  eval "$(atuin init zsh)"
+fi
+
+# ==========================================================
+# Starship
+# ==========================================================
+
+if command -v starship >/dev/null 2>&1; then
+  eval "$(starship init zsh)"
+fi

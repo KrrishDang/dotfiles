@@ -1,19 +1,98 @@
 #!/usr/bin/env bash
 
-set -e
+set -Eeuo pipefail
 
-DOTFILES="$HOME/dotfiles"
+# ==================================================
+# Export Editor Configuration
+# ==================================================
 
-echo "Exporting VS Code settings..."
+DOTFILES="${DOTFILES:-$HOME/dotfiles}"
 
-mkdir -p "$DOTFILES/vscode"
+VSCODE_DIR="$DOTFILES/config/editors/vscode"
+CURSOR_DIR="$DOTFILES/config/editors/cursor"
+ANTIGRAVITY_DIR="$DOTFILES/config/editors/antigravity"
 
-code --list-extensions > "$DOTFILES/vscode/extensions.txt"
+EXTENSIONS_DIR="$DOTFILES/config/editors/extensions"
 
-cp ~/.vscode-server/data/Machine/settings.json \
-   "$DOTFILES/vscode/settings.json"
+mkdir -p \
+    "$VSCODE_DIR" \
+    "$CURSOR_DIR" \
+    "$ANTIGRAVITY_DIR" \
+    "$EXTENSIONS_DIR"
 
-cp ~/.vscode-server/data/Machine/keybindings.json \
-   "$DOTFILES/vscode/keybindings.json" 2>/dev/null || true
+echo "=========================================="
+echo "Exporting editor configuration..."
+echo "=========================================="
 
-echo "Done."
+# ==================================================
+# VS Code
+# ==================================================
+
+if command -v code >/dev/null 2>&1; then
+
+    echo "• VS Code"
+
+    code --list-extensions | sort \
+        > "$EXTENSIONS_DIR/vscode.list"
+
+    cp \
+        "$HOME/.config/Code/User/settings.json" \
+        "$VSCODE_DIR/settings.json" \
+        2>/dev/null || true
+
+    cp \
+        "$HOME/.config/Code/User/keybindings.json" \
+        "$VSCODE_DIR/keybindings.json" \
+        2>/dev/null || true
+
+fi
+
+# ==================================================
+# Cursor
+# ==================================================
+
+if command -v cursor >/dev/null 2>&1; then
+
+    echo "• Cursor"
+
+    cursor --list-extensions | sort \
+        > "$EXTENSIONS_DIR/cursor.list"
+
+    cp \
+        "$HOME/.config/Cursor/User/settings.json" \
+        "$CURSOR_DIR/settings.json" \
+        2>/dev/null || true
+
+    cp \
+        "$HOME/.config/Cursor/User/keybindings.json" \
+        "$CURSOR_DIR/keybindings.json" \
+        2>/dev/null || true
+
+fi
+
+# ==================================================
+# Antigravity
+# ==================================================
+
+if command -v antigravity-ide >/dev/null 2>&1; then
+
+    echo "• Antigravity"
+
+    antigravity-ide --list-extensions 2>/dev/null | sort \
+        > "$EXTENSIONS_DIR/antigravity.list" \
+        || true
+
+    cp \
+        "$HOME/.config/Antigravity/User/settings.json" \
+        "$ANTIGRAVITY_DIR/settings.json" \
+        2>/dev/null || true
+
+    cp \
+        "$HOME/.config/Antigravity/User/keybindings.json" \
+        "$ANTIGRAVITY_DIR/keybindings.json" \
+        2>/dev/null || true
+
+fi
+
+echo
+echo "Editor configuration exported."

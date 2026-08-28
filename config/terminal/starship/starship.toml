@@ -13,11 +13,15 @@ $directory$character
 """
 
 right_format = """
-$python\
-$nodejs\
 $git_branch\
 $git_status\
-$cmd_duration
+$fill\
+$python\
+$nodejs\
+$rust\
+$golang\
+$docker_context\
+$cmd_duration\
 """
 
 # ==================================================
@@ -37,12 +41,21 @@ vicmd_symbol = "[❮](bold yellow)"
 style = "bold blue"
 truncation_length = 5
 truncate_to_repo = true
-read_only = "󰌾"
+read_only = "󰌾 "
+read_only_style = "bold red"
 
 [directory.substitutions]
-"~/Projects" = "Projects"
-"~/Development" = "Dev"
-"~/Downloads" = "Downloads"
+"~/Developer" = "󰲋"
+"~/Downloads" = ""
+"~/Documents" = "󰈙"
+"~/dotfiles" = "󱁿"
+
+# ==================================================
+# Fill
+# ==================================================
+
+[fill]
+symbol = " "
 
 # ==================================================
 # Git
@@ -51,7 +64,7 @@ read_only = "󰌾"
 [git_branch]
 symbol = " "
 style = "bold lavender"
-format = "[$symbol$branch(:$remote_branch)]($style)"
+format = "[$symbol$branch]($style)"
 
 [git_status]
 style = "bold yellow"
@@ -68,13 +81,41 @@ python_binary = ["python3", "python"]
 format = "[$symbol$version( ($virtualenv))]($style)"
 
 # ==================================================
-# Node.js
+# Node
 # ==================================================
 
 [nodejs]
 symbol = " "
 style = "bold green"
 format = "[$symbol$version]($style)"
+
+# ==================================================
+# Rust
+# ==================================================
+
+[rust]
+symbol = " "
+style = "bold peach"
+format = "[$symbol$version]($style)"
+
+# ==================================================
+# Go
+# ==================================================
+
+[golang]
+symbol = " "
+style = "bold cyan"
+format = "[$symbol$version]($style)"
+
+# ==================================================
+# Docker
+# ==================================================
+
+[docker_context]
+symbol = " "
+style = "bold blue"
+format = "[$symbol$context]($style)"
+only_with_files = true
 
 # ==================================================
 # Command Duration
@@ -99,9 +140,6 @@ disabled = true
 disabled = true
 
 [kubernetes]
-disabled = true
-
-[docker_context]
 disabled = true
 
 [battery]

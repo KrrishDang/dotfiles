@@ -8,87 +8,104 @@ Designed to work on:
 - Linux
 - macOS
 
-The configuration follows a modular structure where each file has a single responsibility, making it easy to maintain and extend.
+The configuration follows a modular structure where each file has a single responsibility, making it easy to maintain, debug, and extend.
 
 ---
 
-## Directory Structure
+# Features
+
+- Modular configuration
+- Fast startup
+- Cross-platform support
+- XDG-aware where practical
+- Production-ready defaults
+- Vim keybindings
+- Modern CLI integrations
+- AI development workflow
+- Safe and maintainable configuration
+
+---
+
+# Directory Structure
 
 ```text
 zsh/
 ├── .zshrc
-├── exports.zsh
-├── history.zsh
-├── shell.zsh
-├── completions.zsh
-├── plugins.zsh
 ├── aliases.zsh
+├── completions.zsh
+├── exports.zsh
 ├── functions.zsh
+├── history.zsh
+├── plugins.zsh
+├── shell.zsh
 └── README.md
 ```
 
 ---
 
-## File Overview
+# File Overview
 
-### `.zshrc`
+## `.zshrc`
 
-Bootstrap file.
+Bootstrap entry point.
 
 Responsible for:
 
 - Loading environment variables
 - Initializing Oh My Zsh
-- Loading all configuration modules
-- Defining global variables (`DOTFILES`, `WORKSPACE`, etc.)
+- Loading modular configuration
+- Defining workstation paths
+
+This file should remain as small as possible.
 
 ---
 
-### `exports.zsh`
+## `exports.zsh`
 
-Environment variables.
+Environment variables and PATH configuration.
 
-Examples:
+Includes:
 
-- XDG Base Directories
+- XDG directories
 - PATH
 - Homebrew
 - NVM
-- uv
 - Editor variables
-- Workspace variables
+- Locale
+- Workspace paths
 - Secrets
 
 ---
 
-### `history.zsh`
+## `history.zsh`
 
 History configuration.
 
 Includes:
 
-- History size
 - Shared history
 - Duplicate removal
+- Extended timestamps
+- Safe history writing
 - History cleanup
-- History safety options
 
 ---
 
-### `shell.zsh`
+## `shell.zsh`
 
-General shell behavior.
+General shell behaviour.
 
 Includes:
 
 - Navigation
-- Completion behavior
+- Editing
+- Completion behaviour
+- Globbing
 - Safety options
-- Shell defaults
 
 ---
 
-### `completions.zsh`
+## `completions.zsh`
 
 Completion system.
 
@@ -96,16 +113,17 @@ Features:
 
 - `compinit`
 - Completion cache
-- Case-insensitive completion
+- Case-insensitive matching
+- Partial matching
 - Colored completion
+- Grouped completion
 - Menu selection
-- Completion grouping
 
 ---
 
-### `plugins.zsh`
+## `plugins.zsh`
 
-External tool initialization.
+Initializes external tools.
 
 Current integrations:
 
@@ -115,13 +133,15 @@ Current integrations:
 - Direnv
 - fzf
 
-Each tool is only initialized if installed.
+Each integration is automatically skipped if the corresponding tool is not installed.
 
 ---
 
-### `aliases.zsh`
+## `aliases.zsh`
 
-Common aliases for:
+Frequently used aliases.
+
+Includes:
 
 - Navigation
 - Git
@@ -129,12 +149,12 @@ Common aliases for:
 - Python
 - uv
 - Neovim
+- AI tools
 - Utilities
-- Development
 
 ---
 
-### `functions.zsh`
+## `functions.zsh`
 
 Reusable shell functions.
 
@@ -146,25 +166,31 @@ Examples:
 - `pyclean`
 - `cgit`
 - `croot`
+- `groot`
+- `devinfo`
 - `ports`
 - `weather`
-- `devinfo`
 
 ---
 
 # Required Tools
 
-Recommended:
+Core:
 
 - Zsh
 - Oh My Zsh
-- Starship
-- Homebrew
 - Git
 - Neovim
-- fzf
+
+Recommended:
+
+- Starship
+- Homebrew
 - eza
 - bat
+- fzf
+- fd
+- ripgrep
 - zoxide
 - atuin
 - direnv
@@ -173,58 +199,64 @@ Recommended:
 - Node.js
 - pnpm
 
+Optional:
+
+- lazygit
+- yazi
+- btop
+- television
+- tmux
+
 ---
 
 # Installation
 
-Clone the dotfiles repository.
+Clone the repository.
 
 ```bash
-git clone <repository>
+git clone <repository> ~/dotfiles
 ```
 
-Symlink or copy the configuration into place.
+Create the required symlinks.
 
 Example:
 
 ```bash
-ln -s ~/dotfiles/config/zsh/.zshrc ~/.zshrc
+ln -sf ~/dotfiles/config/shell/zsh/.zshrc ~/.zshrc
 ```
 
-Ensure all supporting configuration files remain inside the repository.
+Ensure the remaining configuration files stay inside the repository.
 
 ---
 
 # Design Principles
 
-This configuration is designed around a few principles:
+This configuration is built around a few principles.
 
 - Modular
-- Cross-platform
+- Fast
 - Minimal
-- Fast startup
-- Easy to extend
-- XDG-aware where practical
+- Cross-platform
+- XDG-aware
 - Safe defaults
 - Production-ready
+- Easy to extend
 
 ---
 
 # Customization
 
-Most customizations belong in the appropriate module.
+Each module has a single responsibility.
 
-Examples:
-
-| Change                | File              |
-| --------------------- | ----------------- |
-| Environment variables | `exports.zsh`     |
-| History               | `history.zsh`     |
-| Shell behavior        | `shell.zsh`       |
-| Completion            | `completions.zsh` |
-| Plugins               | `plugins.zsh`     |
-| Aliases               | `aliases.zsh`     |
-| Functions             | `functions.zsh`   |
+| Change        | File              |
+| ------------- | ----------------- |
+| Environment   | `exports.zsh`     |
+| History       | `history.zsh`     |
+| Shell options | `shell.zsh`       |
+| Completion    | `completions.zsh` |
+| Plugins       | `plugins.zsh`     |
+| Aliases       | `aliases.zsh`     |
+| Functions     | `functions.zsh`   |
 
 Avoid placing custom logic directly inside `.zshrc`.
 
@@ -234,7 +266,7 @@ Avoid placing custom logic directly inside `.zshrc`.
 
 Never commit secrets.
 
-Sensitive environment variables should be stored in:
+Store sensitive environment variables in:
 
 ```text
 ~/.config/secrets.env
@@ -247,29 +279,50 @@ export OPENAI_API_KEY="..."
 export ANTHROPIC_API_KEY="..."
 ```
 
-This file is intentionally ignored by Git.
-
 ---
 
 # Testing
 
-After making changes, verify the configuration:
+Validate the configuration.
 
 ```bash
 zsh -n ~/.zshrc
 ```
 
-Open a new shell:
+Reload the shell.
 
 ```bash
 exec zsh
 ```
 
-Check startup time:
+Measure startup time.
 
 ```bash
 time zsh -i -c exit
 ```
+
+Verify integrations.
+
+```bash
+which zsh
+which starship
+which atuin
+which zoxide
+which fzf
+which eza
+which bat
+```
+
+---
+
+# Conventions
+
+- Keep `.zshrc` minimal.
+- Add new integrations to `plugins.zsh`.
+- Add aliases to `aliases.zsh`.
+- Add reusable logic to `functions.zsh`.
+- Keep environment variables in `exports.zsh`.
+- Keep configuration modular.
 
 ---
 

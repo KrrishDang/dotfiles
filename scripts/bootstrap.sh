@@ -1,50 +1,139 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-echo "Installing base packages..."
+set -Eeuo pipefail
 
-sudo apt update
-sudo apt install -y zsh git curl fzf eza unzip build-essential
+# ==================================================
+# Bootstrap
+# ==================================================
 
-# ================================
-# OH MY ZSH
-# ================================
-if [ ! -d "$HOME/.oh-my-zsh" ]; then
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+DOTFILES="${DOTFILES:-$HOME/dotfiles}"
+
+echo "=========================================="
+echo " AI Workstation Bootstrap"
+echo "=========================================="
+
+# ==================================================
+# Detect Platform
+# ==================================================
+
+OS="$(uname -s)"
+
+case "$OS" in
+    Linux)
+        PLATFORM="linux"
+        ;;
+    Darwin)
+        PLATFORM="macos"
+        ;;
+    *)
+        echo "Unsupported operating system: $OS"
+        exit 1
+        ;;
+esac
+
+# ==================================================
+# Linux
+# ==================================================
+
+if [[ "$PLATFORM" == "linux" ]]; then
+    sudo apt update
+
+    sudo apt install -y \
+        build-essential \
+        curl \
+        fd-find \
+        fzf \
+        git \
+        ripgrep \
+        stow \
+        tmux \
+        unzip \
+        zip \
+        zoxide \
+        zsh
 fi
 
-# ================================
-# STARSHIP
-# ================================
-if ! command -v starship &> /dev/null; then
-  curl -sS https://starship.rs/install.sh | sh
+# ==================================================
+# Homebrew
+# ==================================================
+
+if ! command -v brew >/dev/null 2>&1; then
+    if [[ "$PLATFORM" == "macos" ]]; then
+        /bin/bash -c \
+            "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
 fi
 
-# ================================
-# NVM (Node Version Manager)
-# ================================
-if [ ! -d "$HOME/.nvm" ]; then
-  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+# ==================================================
+# Oh My Zsh
+# ==================================================
+
+if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
+    RUNZSH=no CHSH=no \
+    sh -c \
+    "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
+
+# ==================================================
+# Starship
+# ==================================================
+
+if ! command -v starship >/dev/null 2>&1; then
+    curl -sS https://starship.rs/install.sh | sh -s -- -y
+fi
+
+# ==================================================
+# uv
+# ==================================================
+
+if ! command -v uv >/dev/null 2>&1; then
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+fi
+
+# ==================================================
+# NVM
+# ==================================================
+
+if [[ ! -d "$HOME/.nvm" ]]; then
+    curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 fi
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-# Install latest Node
-nvm install --lts
-
-# ================================
-# PNPM
-# ================================
-if ! command -v pnpm &> /dev/null; then
-  corepack enable
-  corepack prepare pnpm@latest --activate
+if [[ -s "$NVM_DIR/nvm.sh" ]]; then
+    source "$NVM_DIR/nvm.sh"
 fi
 
-# ================================
-# UV (Python package manager)
-# ================================
-if ! command -v uv &> /dev/null; then
-  curl -Ls https://astral.sh/uv/install.sh | sh
+if command -v nvm >/dev/null 2>&1; then
+    nvm install --lts
 fi
 
-echo "Bootstrap complete!"
+# ==================================================
+# pnpm
+# ==================================================
+
+if command -v corepack >/dev/null 2>&1; then
+    corepack enable
+
+    if ! command -v pnpm >/dev/null 2>&1; then
+        corepack prepare pnpm@latest --activate
+    fi
+fi
+
+# ==================================================
+# Directories
+# ==================================================
+
+mkdir -p \
+    "$HOME/Developer" \
+    "$HOME/.config" \
+    "$HOME/.cache" \
+    "$HOME/.local/bin" \
+    "$HOME/.local/share"
+
+# ==================================================
+# Finished
+# ==================================================
+
+echo
+echo "Bootstrap completed successfully."

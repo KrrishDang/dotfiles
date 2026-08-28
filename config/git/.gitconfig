@@ -1,3 +1,7 @@
+# ==================================================
+# User
+# ==================================================
+
 [user]
     name = Krrish Dang
     email = 153355802+KrrishDang@users.noreply.github.com
@@ -8,8 +12,9 @@
 
 [core]
     editor = nvim
-    excludesfile = ~/.dotfiles/config/git/.gitignore_global
+    excludesfile = ~/.config/git/.gitignore_global
     autocrlf = input
+    pager = delta
 
 # ==================================================
 # Default Branch
@@ -109,3 +114,15 @@
 
 [color]
     ui = auto
+
+# ==================================================
+# Delta
+# ==================================================
+
+[delta]
+    navigate = true
+    side-by-side = true
+    line-numbers = true
+
+[interactive]
+    diffFilter = delta --color-only

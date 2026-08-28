@@ -22,6 +22,13 @@ setopt AUTO_LIST
 setopt AUTO_PARAM_SLASH
 
 # ----------------------------------------------------------
+# Globbing
+# ----------------------------------------------------------
+
+setopt EXTENDED_GLOB
+setopt NUMERIC_GLOB_SORT
+
+# ----------------------------------------------------------
 # Editing
 # ----------------------------------------------------------
 
@@ -34,8 +41,8 @@ export KEYTIMEOUT=1
 
 setopt INTERACTIVE_COMMENTS
 setopt NO_BEEP
-setopt EXTENDED_GLOB
 setopt HASH_CMDS
+setopt PRINT_EXIT_VALUE
 
 # ----------------------------------------------------------
 # Safety
@@ -48,3 +55,4 @@ setopt NO_CLOBBER
 # ----------------------------------------------------------
 
 unsetopt CORRECT
+unsetopt CORRECT_ALL
