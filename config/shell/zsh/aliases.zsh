@@ -177,7 +177,6 @@ command -v agy >/dev/null 2>&1 && alias ag='agy'
 command -v lazygit >/dev/null 2>&1 && alias lg='lazygit'
 command -v yazi >/dev/null 2>&1 && alias y='yazi'
 command -v btop >/dev/null 2>&1 && alias b='btop'
-command -v fastfetch >/dev/null 2>&1 && alias ffd='fastfetch'
 
 # ==========================================================
 # Fastfetch Profiles
